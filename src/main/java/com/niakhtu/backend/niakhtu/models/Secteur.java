@@ -5,16 +5,24 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode // Pour gérer correctement l'égalité des objets Secteur
 @Entity
 @Table(name = "secteur")
 public class Secteur {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-génération de l'ID
     @Column(name = "SECTEUR_ID", nullable = false)
     private Long id;
 
@@ -42,7 +50,7 @@ public class Secteur {
     @Column(name = "SECTEUR_MOTS_CLES")
     private String secteurMotsCles;
 
-    @OneToMany(mappedBy = "secteur")
+    // Relation avec SousSecteur
+    @OneToMany(mappedBy = "secteur", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SousSecteur> sousSecteurs = new LinkedHashSet<>();
-
 }

@@ -1,20 +1,23 @@
 package com.niakhtu.backend.niakhtu.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "structure")
 public class Structure {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-génération de l'ID
     @Column(name = "STRUCTURE_ID", nullable = false)
     private Long id;
 
@@ -41,5 +44,4 @@ public class Structure {
     @Size(max = 255)
     @Column(name = "STRUCTURE_MOTS_CLES")
     private String structureMotsCles;
-
 }

@@ -8,12 +8,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "type_cible")
 public class TypeCible {
+
     @Id
     @Size(max = 50)
     @Column(name = "TYPE_CIBLE_CODE", nullable = false, length = 50)
@@ -26,5 +31,4 @@ public class TypeCible {
 
     @Column(name = "TYPE_CIBLE_ORDRE")
     private Long typeCibleOrdre;
-
 }

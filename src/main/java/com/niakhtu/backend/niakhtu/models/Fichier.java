@@ -19,8 +19,10 @@ public class Fichier {
     @Column(name = "FIC_ID", nullable = false)
     private Long id;
 
-    @Column(name = "COMPLAINTE_ID") // Clé étrangère pour la plainte
-    private Long complainteId;
+    // Relation avec l'entité Complainte (clé étrangère)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPLAINTE_ID")
+    private Complainte complainte;
 
     @Size(max = 255)
     @NotNull
@@ -50,4 +52,11 @@ public class Fichier {
     @Size(max = 255)
     @Column(name = "FIC_COMMENT") // Commentaire facultatif sur le fichier
     private String ficComment;
+
+    public void setComplainteId(Long complainteId) {
+        this.complainte = new Complainte(); // Crée une nouvelle instance de Complainte
+        this.complainte.setId(complainteId); // Définit l'ID de la plainte
+    }
+
+
 }

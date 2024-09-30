@@ -14,10 +14,13 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "reponse_cible")
 public class ReponseCible {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-génération de l'ID
     @Column(name = "REPONSE_ID", nullable = false)
     private Long id;
 
+    // Relation avec Complainte
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "COMPLAINTE_ID", nullable = false)
@@ -42,5 +45,4 @@ public class ReponseCible {
     @NotNull
     @Column(name = "REPONSE_STATUT", nullable = false)
     private Integer reponseStatut;
-
 }

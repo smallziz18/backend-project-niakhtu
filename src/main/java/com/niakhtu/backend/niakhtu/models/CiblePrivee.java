@@ -1,9 +1,6 @@
 package com.niakhtu.backend.niakhtu.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -15,6 +12,7 @@ import lombok.Setter;
 @Table(name = "cible_privee")
 public class CiblePrivee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CIBLE_ID", nullable = false)
     private Long id;
 

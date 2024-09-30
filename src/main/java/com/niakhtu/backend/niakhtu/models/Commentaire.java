@@ -14,9 +14,11 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "commentaires")
 public class Commentaire {
-    @EmbeddedId
-    private CommentaireId id;
 
+    @EmbeddedId
+    private CommentaireId id; // Clé primaire composite
+
+    // Relation avec la plainte (complainteId fait partie de la clé composite)
     @MapsId("complainteId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "COMPLAINTE_ID", nullable = false)
@@ -49,5 +51,4 @@ public class Commentaire {
 
     @Column(name = "COMMENT_VOTE")
     private Integer commentVote;
-
 }

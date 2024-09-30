@@ -1,4 +1,5 @@
 package com.niakhtu.backend.niakhtu.services;
+
 import com.niakhtu.backend.niakhtu.models.Fichier;
 import com.niakhtu.backend.niakhtu.repository.FichierRepository;
 import org.springframework.stereotype.Service;
@@ -40,15 +41,16 @@ public class FileStorageService {
         // Créer une entrée dans la base de données pour ce fichier
         Fichier fichier = new Fichier();
 
+        // Associer à la plainte si complainteId est présent
         if (complainteId != null) {
-            fichier.setComplainteId(complainteId);  // Associer à la plainte si complainteId est présent
+            fichier.setComplainteId(complainteId); // Assurez-vous d'avoir une méthode pour définir l'ID de la plainte
         }
 
-        fichier.setFicNom(fileName);            // Nom du fichier
-        fichier.setFicChemin(targetLocation.toString());  // Chemin où le fichier est stocké
-        fichier.setFicDateHeure(Instant.now());  // Date d'ajout
+        fichier.setFicNom(fileName); // Nom du fichier
+        fichier.setFicChemin(targetLocation.toString()); // Chemin où le fichier est stocké
+        fichier.setFicDateHeure(Instant.now()); // Date d'ajout
         fichier.setFicType(detectFileType(file)); // Type du fichier (image, vidéo, etc.)
-        fichier.setFicAuteur(auteurId);          // ID de l'auteur (plaignant)
+        fichier.setFicAuteur(auteurId); // ID de l'auteur (plaignant)
 
         // Enregistrer l'objet `Fichier` dans la base de données
         return fichierRepository.save(fichier);

@@ -3,8 +3,7 @@ package com.niakhtu.backend.niakhtu.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -12,15 +11,17 @@ import java.time.LocalTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "complainte")
 public class Complainte {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COMPLAINTE_ID", nullable = false)
     private Long id;
 
+    // Relation avec l'entité Plaignant
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PLAIGNANT_ID", nullable = false)
@@ -69,29 +70,38 @@ public class Complainte {
     @Column(name = "COMPLAINTE_CAUSE_NR")
     private String complainteCauseNr;
 
+    // Relation avec l'entité TypePlainte
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TYPE_PLAINTE_CODE", nullable = false)
     private TypePlainte typePlainteCode;
 
+    // Relation avec l'entité TypeCible
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TYPE_CIBLE_CODE", nullable = false)
     private TypeCible typeCibleCode;
 
+    // Relation avec l'entité CiblePrivee
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CIBLE_ID")
     private CiblePrivee cible;
 
+    // Relation avec l'entité Structure
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "STRUCTURE_ID", nullable = false)
     private Structure structure;
 
-    @OneToMany(mappedBy = "complainte")
+    // Relation avec l'entité Commentaire (One-to-Many)
+    @OneToMany(mappedBy = "complainte", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Commentaire> commentaires = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "complainte")
-    private Set<ReponseCible> reponseCibles = new LinkedHashSet<>();
+    // Relation avec l'entité Fichier (One-to-Many)
+    @OneToMany(mappedBy = "complainte", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Fichier> fichier = new LinkedHashSet<>();
 
+    // Relation avec l'entité ReponseCible (One-to-Many)
+    @OneToMany(mappedBy = "complainte", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ReponseCible> reponseCibles = new LinkedHashSet<>();
 }

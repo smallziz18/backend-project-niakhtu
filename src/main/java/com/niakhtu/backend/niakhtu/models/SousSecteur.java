@@ -5,16 +5,23 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "sous_secteur")
 public class SousSecteur {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-génération de l'ID
     @Column(name = "SSECTEUR_ID", nullable = false)
     private Long id;
 
+    // Relation avec Secteur
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SECTEUR_ID", nullable = false)
@@ -43,5 +50,4 @@ public class SousSecteur {
     @Size(max = 255)
     @Column(name = "SSECTEUR_MOTS_CLES")
     private String ssecteurMotsCles;
-
 }

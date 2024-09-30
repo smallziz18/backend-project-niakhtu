@@ -8,12 +8,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "type_plainte")
 public class TypePlainte {
+
     @Id
     @Size(max = 50)
     @Column(name = "TYPE_PLAINTE_CODE", nullable = false, length = 50)
@@ -26,5 +31,4 @@ public class TypePlainte {
 
     @Column(name = "TYPE_PLAINTE_ORDRE")
     private Long typePlainteOrdre;
-
 }
